@@ -9,6 +9,23 @@ Consists of spinning up an ec2 instance with a snapshot AMI, associating the cor
     - Convert to spot instances
 
 ## minecraftadmin: Flask application for basic adminstration
+Simple minecraft
 
-    TODO:
-    - Get things ready for an initial commit
+### Features
+- Supports configuration of 3 worlds on one server
+- Displays Server Status, and names of players within the world.
+- Allow stop / start / status refresh of each world, or shutdown of entire instance
+
+### Installation
+1) Create lambda functions that allow you to start / stop instances and retrieve the status of the instance (TODO: commit code)
+2) Enable your worlds to start / stop as a service (TODO: commit code)
+3) Edit config.py, specifying the region that maps to the name of your service
+4) `pip install -r requirements.txt`
+5) Start the app
+   1) For gunicorn, `gunicorn --bind 0.0.0.0:5000 wsgi:app`
+   2) For flask
+   ```
+   export FLASK_APP=app.py
+   flask run --host=0.0.0.0
+   ```
+6) Enable as a service (TODO: commit code)
