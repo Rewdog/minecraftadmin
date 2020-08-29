@@ -1,0 +1,220 @@
+<html>
+    <head>
+        <title>{{ TITLE }}</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <style>
+            /* Style the body */
+            body {
+              font-family: Arial;
+              margin: 0;
+            }
+            
+            /* Header/Logo Title */
+            .header {
+              padding: 30px;
+              text-align: center;
+              background: rgb(28, 184, 65);
+              color: white;
+              text-shadow: 2px 2px black;
+              font-size: 30px;
+            }
+            
+            /* Page Content */
+            .content {padding:20px;}
+        </style>
+        <div align="center" class="header"><h1>{{ TITLE }}</h1>
+        </div>    
+        <div class="pure-g" align="center">
+		<div class="pure-u-1-1"><p><h2>All Worlds should start when server starts</h2></p>
+			<b><a href={{ GOOGLEMEETURL }}><font color="green">Join Google Meet</font></a></b>
+   			<br><img src="/static/icon.png" width="35" height="35">
+		</div>
+        </div>
+        <div class="pure-g" align="center">
+            <div class="pure-u-1-2"><p>
+                <h3>Instructions</h3>
+                <h4>Cloud server controls all servers. The world servers run on the cloud server. Please wait about 1 minute after pressing each button before trying again; you can refresh status to see an update.</h4> </h4></p>
+            </p>
+            </div>
+            <div class="pure-u-1-2">
+                <style scoped="">
+                    .button-success,
+                    .button-error,
+                    .button-warning,
+                    .button-secondary {
+                        color: white;
+                        border-radius: 4px;
+                        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+                    }
+            
+                    .button-success {
+                        background: rgb(28, 184, 65);
+                        /* this is a green */
+                    }
+            
+                    .button-error {
+                        background: rgb(202, 60, 60);
+                        /* this is a maroon */
+                    }
+            
+                    .button-warning {
+                        background: rgb(223, 117, 20);
+                        /* this is an orange */
+                    }
+            
+                    .button-secondary {
+                        background: rgb(66, 184, 221);
+                        /* this is a light blue */
+                    }
+                </style>
+                
+                <p>
+                <h3>Cloud Server</h3>
+		<h4></h4><b><font color=green>Server is Up</font></b></p>
+                <a class="button-error pure-button" onclick=stopServer()>Stop Server</a>
+                <p id="demo"></p>
+
+            </p></div>         
+        </div>
+         
+        <div class="pure-g" align="center">
+            <div class="pure-u-1-3"><p><h3>{{ SERVERONE.name }}</h3>
+                <p><h4 id={{ SERVERONE.region }}Status></h4>
+                <i><h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERONE.portsuffix }}</font></h4></i></p>
+		<h5 id={{ SERVERONE.region }}players></h5>
+                <a class="button-secondary pure-button" onclick=statusRefresh(`{{ SERVERONE.region }}`)>Refresh Status</a>
+                <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERONE.region }}`,`start`)>Start Server</a></p>
+                <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERONE.region }}`,`stop`)>Stop Server</a></p>
+            </div>
+            <div class="pure-u-1-3">
+                <p><h3>{{ SERVERTWO.name }}</h3></p><h4 id={{ SERVERTWO.region }}Status></h4><i>
+                <h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERTWO.portsuffix }}</font></h4></i></p>
+		<h5 id={{ SERVERTWO.region }}players></h5>
+                <a class="button-secondary pure-button" onclick=statusRefresh(`{{ SERVERTWO.region }}`)>Refresh Status</a>
+                <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERTWO.region }}`,`start`)>Start Server</a></p>
+                <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERTWO.region }}`,`stop`)>Stop Server</a></p>
+            </div>
+            <div class="pure-u-1-3">
+                <p><h3>{{ SERVERTHREE.name }}</h3></p><h4 id={{ SERVERTHREE.region }}Status></h4><i>
+                <h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERTHREE.portsuffix }}</font></h4></i></p>
+	        <h5 id={{ SERVERTHREE.region }}players></h5>
+                <a class="button-secondary pure-button" onclick=statusRefresh(`{{ SERVERTHREE.region }}`)>Refresh Status</a>
+                <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERTHREE.region }}`,`start`)>Start Server</a></p>
+                <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERTHREE.region }}`,`stop`)>Stop Server</a></p>
+            </div>
+        </div>
+
+        <script>
+            window.onload = statusRefresh("{{ SERVERTHREE.region }}")
+            window.onload = statusRefresh("{{ SERVERTWO.region }}")
+            window.onload = statusRefresh("aws")
+            window.onload = statusRefresh("{{ SERVERONE.region }}")
+
+
+
+            function statusRefresh(region) {
+                regionServer = region
+                if (region == "{{ SERVERONE.region }}") {
+                     regionServer = "aws"
+                }
+                fetch(`{{ STATUSBASEPATH }}minecraftstatus?region=${regionServer}`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(myJson);
+                    var color = 'red';
+                    if (myJson == "Server is Up") {
+                        color = 'green'
+                        playerRefresh(region);
+                    }
+                    else {
+                        document.querySelector(`#${region}players`).innerHTML = "";
+                    }
+                    document.querySelector(`#${region}Status`).innerHTML = "<font color='" + color + "'>" + myJson + "</font>";
+                })
+                .catch(function (error) {
+                    document.querySelector(`#${region}Status`).innerHTML = "<font color=red>Server Error</font>"
+                    console.log("Error: " + error);
+                })
+            };
+
+            function playerRefresh(region) {
+                regionServer = region
+		    fetch(`${regionServer}/status`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(myJson);
+                    document.querySelector(`#${region}players`).innerHTML = myJson;
+                })
+		.catch(function (error) {
+		    console.log("Error: " + error);
+		})
+            };
+
+
+            function startServer() {
+                fetch("{{ LAMBDABASEPATH }}minecraftstarter?action=start", {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                'X-API-KEY': '{{ STARTAPIKEY }}',
+                    },
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(myJson);
+                    var color = 'red';
+                    if (myJson == "Server is Up") {
+                        color = 'green'
+                    }
+                    document.getElementById("demo").innerHTML = myJson;
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error);
+                });
+            }
+            function stopServer() {
+                fetch("{{ LAMBDABASEPATH }}minecraftstarter?action=stop", {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                'X-API-KEY': '{{ STARTAPIKEY }}',
+                    },
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(myJson);
+                    document.getElementById("demo").innerHTML = myJson;
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error);
+                });
+            }
+            function serviceAction(service, action) {
+                fetch(`/${service}/${action}`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(myJson);
+                    document.querySelector(`#${service}Status`).innerHTML = "<font color='" + color + "'>" + myJson + "</font>";
+                })
+                .catch(function (error) {
+                    document.querySelector(`#${service}Status`).innerHTML = "<font color=red>Server Error</font>"
+                    console.log("Error: " + error);
+                });
+            }
+        </script>
+        
+    </body>
+</html>
