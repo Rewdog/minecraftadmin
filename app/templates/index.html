@@ -81,7 +81,7 @@
         </div>
          
         <div class="pure-g" align="center">
-            <div class="pure-u-1-3"><p><h3>{{ SERVERONE.name }}</h3>
+            <div class="pure-u-1-2"><p><h3>{{ SERVERONE.name }}</h3>
                 <p><h4 id={{ SERVERONE.region }}Status></h4>
                 <i><h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERONE.portsuffix }}</font></h4></i></p>
 		<h5 id={{ SERVERONE.region }}players></h5>
@@ -89,7 +89,7 @@
                 <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERONE.region }}`,`start`)>Start Server</a></p>
                 <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERONE.region }}`,`stop`)>Stop Server</a></p>
             </div>
-            <div class="pure-u-1-3">
+            <div class="pure-u-1-2">
                 <p><h3>{{ SERVERTWO.name }}</h3></p><h4 id={{ SERVERTWO.region }}Status></h4><i>
                 <h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERTWO.portsuffix }}</font></h4></i></p>
 		<h5 id={{ SERVERTWO.region }}players></h5>
@@ -97,7 +97,7 @@
                 <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERTWO.region }}`,`start`)>Start Server</a></p>
                 <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERTWO.region }}`,`stop`)>Stop Server</a></p>
             </div>
-            <div class="pure-u-1-3">
+            <div class="pure-u-1-2">
                 <p><h3>{{ SERVERTHREE.name }}</h3></p><h4 id={{ SERVERTHREE.region }}Status></h4><i>
                 <h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERTHREE.portsuffix }}</font></h4></i></p>
 	        <h5 id={{ SERVERTHREE.region }}players></h5>
@@ -105,9 +105,18 @@
                 <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERTHREE.region }}`,`start`)>Start Server</a></p>
                 <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERTHREE.region }}`,`stop`)>Stop Server</a></p>
             </div>
+            <div class="pure-u-1-2">
+                <p><h3>{{ SERVERFOUR.name }}</h3></p><h4 id={{ SERVERFOUR.region }}Status></h4><i>
+                <h4>{{ DOMAIN }}:2556<font color=blue>{{ SERVERFOUR.portsuffix }}</font></h4></i></p>
+	        <h5 id={{ SERVERFOUR.region }}players></h5>
+                <a class="button-secondary pure-button" onclick=statusRefresh(`{{ SERVERFOUR.region }}`)>Refresh Status</a>
+                <p><a class="button-success pure-button" onclick=serviceAction(`{{ SERVERFOUR.region }}`,`start`)>Start Server</a></p>
+                <p><a class="button-error pure-button" onclick=serviceAction(`{{ SERVERFOUR.region }}`,`stop`)>Stop Server</a></p>
+            </div>
         </div>
 
         <script>
+            window.onload = statusRefresh("{{ SERVERFOUR.region }}")
             window.onload = statusRefresh("{{ SERVERTHREE.region }}")
             window.onload = statusRefresh("{{ SERVERTWO.region }}")
             window.onload = statusRefresh("aws")
