@@ -21,11 +21,12 @@ Simple minecraft
 2) Enable your worlds to start / stop as a service (TODO: commit code)
 3) Edit config.py, specifying the region that maps to the name of your service
 4) `pip install -r requirements.txt`
-5) Start the app
+5) set environment variables for USER and PASSWORD used in basic auth
+6) Start the app
    1) For gunicorn, `gunicorn --bind 0.0.0.0:5000 wsgi:app`
    2) For flask
    ```
    export FLASK_APP=app.py
    flask run --host=0.0.0.0
    ```
-6) Enable as a service (TODO: commit code)
+7) Enable as a service (TODO: commit code)
