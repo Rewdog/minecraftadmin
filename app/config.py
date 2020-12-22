@@ -13,3 +13,4 @@ DOMAIN = "example.com"
 SERVERONE = World(name="World One", region="worldone", portsuffix="5")
 SERVERTWO = World(name="World Two", region="worldtwo", portsuffix="6")
 SERVERTHREE = World(name="World Three", region="worldthree", portsuffix="7")
+SERVERFOUR = World(name="World Four", region="worldfour", portsuffix="8")
