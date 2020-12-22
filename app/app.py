@@ -19,7 +19,7 @@ servicedict = {
     config.SERVERONE.region: "minecraft",
     config.SERVERTWO.region: "minecraft-" + config.SERVERTWO.region,
     config.SERVERTHREE.region: "minecraft-" + config.SERVERTHREE.region,
-    config.SERVERFOUR.region: "minecraft-" + config.SERVERTHREE.region
+    config.SERVERFOUR.region: "minecraft-" + config.SERVERFOUR.region
 }
 
 #Dictionary that maps each server to the name path to use for using mc-status
@@ -27,7 +27,7 @@ serverdict = {
     config.SERVERONE.region: "localhost:2556" + config.SERVERONE.portsuffix,
     config.SERVERTWO.region: "localhost:2556" + config.SERVERTWO.portsuffix,
     config.SERVERTHREE.region: "localhost:2556" + config.SERVERTHREE.portsuffix,
-    config.SERVERFOUR.region: "localhost:2556" + config.SERVERTHREE.portsuffix
+    config.SERVERFOUR.region: "localhost:2556" + config.SERVERFOUR.portsuffix
 }
 
 
