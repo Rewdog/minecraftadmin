@@ -1,13 +1,14 @@
 class World:
-  def __init__(self, name, region, portsuffix):
-    self.name = name
-    self.region = region
-    self.portsuffix = portsuffix
+    def __init__(self, name, region, portsuffix):
+        self.name = name
+        self.region = region
+        self.portsuffix = portsuffix
+
 
 GOOGLEMEETURL = "https://meet.google.com/ex-amp-le"
-STARTAPIKEY = 'APIKEYFORLAMBDATOSTARTINSTANCE'
-LAMBDABASEPATH = 'https://locationoflambdastarter.amazonaws.com/default/'
-STATUSBASEPATH = 'https://locationoflambdastatus.amazonaws.com/default/'
+STARTAPIKEY = "APIKEYFORLAMBDATOSTARTINSTANCE"
+LAMBDABASEPATH = "https://locationoflambdastarter.amazonaws.com/default/"
+STATUSBASEPATH = "https://locationoflambdastatus.amazonaws.com/default/"
 TITLE = "Pillager's Minecraft Server Status"
 DOMAIN = "example.com"
 SERVERONE = World(name="World One", region="worldone", portsuffix="5")
