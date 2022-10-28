@@ -5,4 +5,4 @@ itsdangerous==2.1.2
 Jinja2>=3.0
 MarkupSafe==2.1.1
 Werkzeug>=2.0
-mcstatus==9.0.4
+mcstatus==10.0.1
